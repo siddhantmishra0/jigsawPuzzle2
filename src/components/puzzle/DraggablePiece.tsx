@@ -8,27 +8,27 @@ interface DraggablePieceProps {
   text: string;
   isPlaced?: boolean;
   isOverlay?: boolean;
+  /** Rendered size in px — must match DropSlot */
+  size?: number;
 }
 
-// getPuzzlePath uses a 100×100 coordinate space with 15% margin.
-// Core: (15,15)→(85,85). Holes indent up to ~27 from each edge.
-// Safe text zone: roughly (27,27)→(73,73) in path coords.
-const PIECE_SIZE = 150; // px — rendered size
+// Path uses a 150×150 viewBox (core 25–125, tabs reach 0 and 150).
 
-export function DraggablePiece({ id, index, text, isPlaced, isOverlay }: DraggablePieceProps) {
+export function DraggablePiece({ id, index, text, isPlaced, isOverlay, size = 150 }: DraggablePieceProps) {
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id,
     disabled: isPlaced || isOverlay,
   });
 
   const path = getPuzzlePath(index, 100, 25);
+  const fontSize = Math.max(7, Math.round(size * 0.072));
 
   return (
     <div
       ref={isOverlay ? undefined : setNodeRef}
       {...(isOverlay ? {} : listeners)}
       {...(isOverlay ? {} : attributes)}
-      style={{ width: PIECE_SIZE, height: PIECE_SIZE }}
+      style={{ width: size, height: size }}
       className={cn(
         'relative shrink-0 touch-none select-none',
         isPlaced
@@ -40,8 +40,8 @@ export function DraggablePiece({ id, index, text, isPlaced, isOverlay }: Draggab
     >
       <svg
         viewBox="0 0 150 150"
-        width={PIECE_SIZE}
-        height={PIECE_SIZE}
+        width={size}
+        height={size}
         className="absolute inset-0 overflow-visible"
         style={{ pointerEvents: 'none' }}
       >
@@ -54,7 +54,7 @@ export function DraggablePiece({ id, index, text, isPlaced, isOverlay }: Draggab
               : 'fill-white dark:fill-gray-800 stroke-gray-400 dark:stroke-gray-500'
           )}
         />
-        {/* Core is (25,25)→(125,125) in 150-unit space; text safe zone inside core */}
+        {/* Core is (25,25)→(125,125) in 150-unit space */}
         <foreignObject x="30" y="30" width="90" height="90">
           <div
             // @ts-expect-error xmlns needed for foreignObject
@@ -62,8 +62,9 @@ export function DraggablePiece({ id, index, text, isPlaced, isOverlay }: Draggab
             className="w-full h-full flex items-center justify-center overflow-hidden p-1 text-center"
           >
             <span
+              style={{ fontSize }}
               className={cn(
-                'text-[10px] leading-[1.15] font-semibold select-none break-words whitespace-normal',
+                'leading-[1.2] font-semibold select-none break-words whitespace-normal',
                 isOverlay ? 'text-white' : 'text-gray-800 dark:text-gray-100'
               )}
             >

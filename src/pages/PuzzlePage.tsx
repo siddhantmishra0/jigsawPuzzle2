@@ -83,7 +83,7 @@ export function PuzzlePage() {
           </div>
         </div>
 
-        <div className="flex items-center gap-6 bg-white/50 dark:bg-black/20 p-3 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm">
+        <div className="flex items-center gap-3 md:gap-6 bg-white/50 dark:bg-black/20 px-3 md:p-3 py-2 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm overflow-x-auto shrink-0">
           <div className="flex items-center gap-2">
             <Clock className="w-4 h-4 text-gray-500" />
             <span className="font-mono font-medium">{formatTime(seconds)}</span>

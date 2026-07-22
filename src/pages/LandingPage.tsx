@@ -59,7 +59,7 @@ export function LandingPage() {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center gap-6 mt-4 px-6 py-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm"
+            className="inline-flex flex-wrap items-center gap-3 md:gap-6 mt-4 px-4 md:px-6 py-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm"
           >
             <div className="flex items-center gap-2 text-yellow-400">
               <Trophy className="w-4 h-4" />
