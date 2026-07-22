@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Trophy, Clock, Target, Download, RotateCcw } from 'lucide-react';
+import { Trophy, Clock, Target, RotateCcw } from 'lucide-react';
 import { motion } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { useGameStore } from '../store/useGameStore';
@@ -55,10 +55,6 @@ export function FinalDashboard() {
     }
   };
 
-  const handleDownloadCertificate = () => {
-    // In a real app, this would generate a PDF or image
-    alert("Downloading Certificate of Completion...");
-  };
 
   return (
     <div className="min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center p-6 md:p-12 max-w-4xl mx-auto">
@@ -93,10 +89,7 @@ export function FinalDashboard() {
           </GlassCard>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg" onClick={handleDownloadCertificate} className="bg-ml-green hover:bg-green-600">
-            <Download className="w-5 h-5 mr-2" /> Download Certificate
-          </Button>
+        <div className="flex justify-center">
           <Button size="lg" variant="outline" onClick={handleReset}>
             <RotateCcw className="w-5 h-5 mr-2" /> Play Again
           </Button>
