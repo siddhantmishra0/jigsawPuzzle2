@@ -74,7 +74,7 @@ export function PuzzleBoard({ algorithm, onComplete }: PuzzleBoardProps) {
       onDragEnd={handleDragEnd}
       collisionDetection={closestCenter}
     >
-      <div className="w-full flex flex-col md:flex-row gap-8">
+      <div className="w-full flex flex-col md:flex-row md:justify-between gap-8">
         {/* ── Left: 3×3 Board ── */}
         <div className="flex-1 flex flex-col items-center">
           <div className="mb-4 w-full flex items-center justify-between">
@@ -87,7 +87,7 @@ export function PuzzleBoard({ algorithm, onComplete }: PuzzleBoardProps) {
           {/* Each cell is 120×120 px (matches PIECE_SIZE in DropSlot / DraggablePiece) */}
           <div
             className="grid grid-cols-3"
-            style={{ width: 360, height: 360 }}
+            style={{ width: 450, height: 450 }}
           >
             {algorithm.questions.map((q, index) => {
               const placed = placedPieces.find((p) => p.questionId === q.id);
@@ -109,7 +109,7 @@ export function PuzzleBoard({ algorithm, onComplete }: PuzzleBoardProps) {
         </div>
 
         {/* ── Right: Answer Drawer ── */}
-        <div className="w-full md:w-72 flex flex-col">
+        <div className="flex flex-col" style={{ width: 450 }}>
           <h3 className="text-xl font-bold mb-4">Answers</h3>
 
           {feedback && (
@@ -131,8 +131,8 @@ export function PuzzleBoard({ algorithm, onComplete }: PuzzleBoardProps) {
             </motion.div>
           )}
 
-          <div className="glass rounded-xl p-4 flex-1 bg-gray-50/50 dark:bg-black/20 overflow-y-auto">
-            <div className="flex flex-wrap gap-2 justify-center">
+          <div className="glass rounded-xl bg-gray-50/50 dark:bg-black/20">
+            <div className="grid gap-0" style={{ gridTemplateColumns: 'repeat(3, 150px)' }}>
               {shuffledAnswers.map((answer) => {
                 const isPlaced = placedPieces.some((p) => p.answerId === answer.id);
                 const correctIndex = algorithm.questions.findIndex(

@@ -1,7 +1,7 @@
 import { useDroppable } from '@dnd-kit/core';
 import { cn } from '../../utils';
 import { motion, AnimatePresence } from 'framer-motion';
-import { getPuzzlePath } from '../../utils/jigsaw';
+import { getSquarePath } from '../../utils/jigsaw';
 
 interface DropSlotProps {
   id: string;
@@ -10,15 +10,15 @@ interface DropSlotProps {
   placedAnswerText?: string;
 }
 
-const PIECE_SIZE = 120; // must match DraggablePiece
+const PIECE_SIZE = 150; // must match DraggablePiece
 
-export function DropSlot({ id, index, question, placedAnswerText }: DropSlotProps) {
+export function DropSlot({ id, question, placedAnswerText }: DropSlotProps) {
   const { isOver, setNodeRef } = useDroppable({
     id,
     disabled: !!placedAnswerText,
   });
 
-  const path = getPuzzlePath(index, 100, 25);
+  const path = getSquarePath(100);
 
   return (
     <div
@@ -26,12 +26,12 @@ export function DropSlot({ id, index, question, placedAnswerText }: DropSlotProp
       style={{ width: PIECE_SIZE, height: PIECE_SIZE }}
       className="relative shrink-0"
     >
-      {/* Background puzzle shape — always visible as the slot outline */}
+      {/* Square slot outline */}
       <svg
-        viewBox="0 0 150 150"
+        viewBox="0 0 100 100"
         width={PIECE_SIZE}
         height={PIECE_SIZE}
-        className="absolute inset-0 overflow-visible"
+        className="absolute inset-0"
         style={{ pointerEvents: 'none' }}
       >
         <path
@@ -56,7 +56,7 @@ export function DropSlot({ id, index, question, placedAnswerText }: DropSlotProp
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="absolute inset-0 flex items-center justify-center"
-            style={{ padding: '30px' }} // keep text within core cell (25px border on each side)
+            style={{ padding: '10px' }}
           >
             <span className="text-[9px] leading-tight font-medium text-gray-600 dark:text-gray-400 text-center select-none">
               {question}
@@ -73,7 +73,7 @@ export function DropSlot({ id, index, question, placedAnswerText }: DropSlotProp
             initial={{ scale: 0.7, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             className="absolute inset-0 flex items-center justify-center"
-            style={{ padding: '30px' }}
+            style={{ padding: '10px' }}
           >
             <span className="text-[10px] leading-tight font-semibold text-emerald-700 dark:text-emerald-300 text-center select-none">
               {placedAnswerText}

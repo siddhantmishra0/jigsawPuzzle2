@@ -14,6 +14,11 @@ export const puzzleShapes: Record<number, { t: TabType, r: TabType, b: TabType, 
   8: { t: 1, r: 0, b: 0, l: 1 },
 };
 
+/** Plain square path — used for question-board drop slots. */
+export function getSquarePath(size = 100): string {
+  return `M 0 0 L ${size} 0 L ${size} ${size} L 0 ${size} Z`;
+}
+
 /**
  * Generates an SVG path for a puzzle piece.
  * The core grid cell is `size` x `size`. 
